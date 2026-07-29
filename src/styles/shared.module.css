@@ -1,0 +1,150 @@
+/* Shared utility styles imported by every page */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #39e97b;
+  margin-bottom: 16px;
+}
+
+.eyebrow::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #39e97b;
+}
+
+.eyebrowCenter {
+  justify-content: center;
+}
+
+.sectionTitle {
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.sectionTitle em {
+  font-style: italic;
+  color: #39e97b;
+}
+
+.sectionSub {
+  font-size: 15px;
+  color: #8fa89a;
+  line-height: 1.8;
+  margin-bottom: 48px;
+}
+
+.btnGreen {
+  background: #39e97b;
+  color: #060d08;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 12px 26px;
+  border-radius: 6px;
+  transition: background 0.2s, transform 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btnGreen:hover {
+  background: #2dd16d;
+  transform: translateY(-1px);
+}
+
+.btnOutline {
+  background: transparent;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 12px 26px;
+  border-radius: 6px;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  transition: border-color 0.2s, color 0.2s;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.btnOutline:hover {
+  border-color: #39e97b;
+  color: #39e97b;
+}
+
+.section {
+  padding: 100px 60px;
+}
+
+.sectionDark {
+  background: #060d08;
+}
+
+.sectionMid {
+  background: #0b1a0e;
+}
+
+/* ── CTA BANNER ── */
+.ctaBanner {
+  padding: 100px 60px;
+  background: linear-gradient(135deg, #0d2010 0%, #060d08 50%, #0a1a0d 100%);
+  border-top: 1px solid rgba(57, 233, 123, 0.15);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.ctaBanner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(57, 233, 123, 0.07) 0%, transparent 65%);
+}
+
+.ctaContent {
+  position: relative;
+  z-index: 1;
+}
+
+.ctaTitle {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 36px;
+  line-height: 1.2;
+}
+
+.ctaTitle em {
+  font-style: italic;
+  color: #39e97b;
+}
+
+.ctaCtas {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 72px 24px;
+  }
+
+  .ctaBanner {
+    padding: 72px 24px;
+  }
+}

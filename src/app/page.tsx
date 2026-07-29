@@ -1,13 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import styles from "./page.module.css";
 
-const NAV_LINKS = [
-  { label: "Home", href: "#" },
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Contact", href: "#contact" },
+// Hero: large solar panel field at dusk
+const HERO_IMAGE =
+  "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1920&q=80";
+
+// About: aerial view of solar farm
+const ABOUT_IMAGE =
+  "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=900&q=80";
+
+const CASE_IMAGES = [
+  // Case 1 – wind turbines at sunset (renewable energy tech park)
+  "https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=800&q=80",
+  // Case 2 – solar panels on industrial rooftop (factory retrofit)
+  "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=800&q=80",
 ];
 
 const STATS = [
@@ -313,41 +322,18 @@ export default function Home() {
 
   return (
     <>
-      {/* ── NAV ── */}
-      <nav className={styles.nav}>
-        <div className={styles.navLogo}>
-          <div className={styles.navLogoIcon}>
-            <svg viewBox="0 0 24 24">
-              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-            </svg>
-          </div>
-          <div className={styles.navLogoText}>
-            Utility PO Powers LLC
-            <span>Smart Energy Solutions</span>
-          </div>
-        </div>
-
-        <ul className={styles.navLinks}>
-          {NAV_LINKS.map((l) => (
-            <li key={l.label}>
-              <a href={l.href} className={l.label === "Home" ? styles.active : ""}>
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <div className={styles.navRight}>
-          <span className={styles.navPhone}>+1 (800) 000-1234</span>
-          <a href="#contact" className={styles.btnGreen}>
-            Get a Quote
-          </a>
-        </div>
-      </nav>
-
       {/* ── HERO ── */}
       <section className={styles.hero}>
-        <div className={styles.heroBg} />
+        <div className={styles.heroBg}>
+          <Image
+            src={HERO_IMAGE}
+            alt="Power infrastructure at night"
+            fill
+            priority
+            style={{ objectFit: "cover", objectPosition: "center" }}
+          />
+          <div className={styles.heroBgOverlay} />
+        </div>
         <div className={styles.heroGrid} />
         <div className={styles.heroContent}>
           <p className={styles.heroEyebrow}>Smart Construction LLC</p>
@@ -411,9 +397,12 @@ export default function Home() {
         <div className={styles.aboutGrid}>
           <div className={styles.aboutImageWrap}>
             <div className={styles.aboutImagePlaceholder}>
-              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="rgba(57,233,123,0.3)" strokeWidth="1">
-                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-              </svg>
+              <Image
+                src={ABOUT_IMAGE}
+                alt="Power transmission towers at sunset"
+                fill
+                style={{ objectFit: "cover", objectPosition: "center", borderRadius: "16px" }}
+              />
             </div>
             <div className={styles.isoBadge}>
               <span className={styles.isoBadgeText}>ISO</span>
@@ -531,16 +520,16 @@ export default function Home() {
           Case Studies That <em>Speak for Themselves</em>
         </h2>
         <div className={styles.caseStudiesGrid}>
-          {CASE_STUDIES.map((c) => (
+          {CASE_STUDIES.map((c, idx) => (
             <div key={c.title} className={styles.caseCard}>
               <div className={styles.caseImageWrap}>
-                <div
-                  className={styles.caseImagePlaceholder}
-                  style={{ background: `linear-gradient(135deg, ${c.bgColor}, #111a12)` }}
-                >
-                  <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(57,233,123,0.25)" strokeWidth="1">
-                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                  </svg>
+                <div className={styles.caseImagePlaceholder}>
+                  <Image
+                    src={CASE_IMAGES[idx]}
+                    alt={c.title}
+                    fill
+                    style={{ objectFit: "cover", objectPosition: "center" }}
+                  />
                 </div>
                 <span className={styles.caseCategoryBadge}>{c.category}</span>
               </div>
@@ -644,101 +633,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
-      <footer className={styles.footer}>
-        <div className={styles.footerGrid}>
-          <div className={styles.footerBrand}>
-            <div className={styles.navLogo}>
-              <div className={styles.navLogoIcon}>
-                <svg viewBox="0 0 24 24" fill="#060d08">
-                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                </svg>
-              </div>
-              <div className={styles.navLogoText}>
-                Utility PO Powers LLC
-                <span>Smart Energy Solutions</span>
-              </div>
-            </div>
-            <p>
-              We deliver institutional-grade energy engineering for commercial and industrial
-              clients who demand reliability, efficiency, and a measurable sustainability impact.
-            </p>
-          </div>
-
-          <div>
-            <p className={styles.footerColTitle}>Quick Links</p>
-            <ul className={styles.footerLinks}>
-              {["Home", "About", "Services", "Case Studies", "Contact"].map((l) => (
-                <li key={l}>
-                  <a href="#">{l}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <p className={styles.footerColTitle}>Services</p>
-            <ul className={styles.footerLinks}>
-              {[
-                "New Construction",
-                "Consult Services",
-                "Transfer Services",
-                "SRI Payment Solutions",
-                "Secure Bill Pay",
-                "Energy Optimization",
-              ].map((s) => (
-                <li key={s}>
-                  <a href="#services">{s}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <p className={styles.footerColTitle}>Contact</p>
-            <div className={styles.footerContact}>
-              <div className={styles.footerContactItem}>
-                <svg viewBox="0 0 24 24" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 1.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14h-.08z" />
-                </svg>
-                +1 (800) 000-1234
-              </div>
-              <div className={styles.footerContactItem}>
-                <svg viewBox="0 0 24 24" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                  <polyline points="22,6 12,13 2,6" />
-                </svg>
-                info@utilitypopowerllc.com
-              </div>
-              <div className={styles.footerContactItem}>
-                <svg viewBox="0 0 24 24" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-                United States
-              </div>
-            </div>
-            <p className={styles.footerColTitle} style={{ marginTop: 24, marginBottom: 12 }}>
-              Newsletter
-            </p>
-            <div className={styles.newsletterInput}>
-              <input type="email" placeholder="Your email address" />
-              <button type="button">Subscribe</button>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.footerBottom}>
-          <p className={styles.footerCopy}>
-            © {new Date().getFullYear()} Utility PO Powers LLC. All rights reserved.
-          </p>
-          <div className={styles.footerBottomLinks}>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Sitemap</a>
-          </div>
-        </div>
-      </footer>
     </>
   );
 }

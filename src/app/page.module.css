@@ -127,14 +127,19 @@
 .heroBg {
   position: absolute;
   inset: 0;
+  overflow: hidden;
+}
+
+.heroBgOverlay {
+  position: absolute;
+  inset: 0;
   background: linear-gradient(
-      135deg,
-      rgba(6, 13, 8, 0.92) 0%,
-      rgba(6, 13, 8, 0.75) 50%,
-      rgba(6, 13, 8, 0.9) 100%
-    ),
-    url('https://utilitypopowerllc.com/wp-content/uploads/2024/01/hero-bg.jpg') center / cover no-repeat;
-  background-color: #0d1a10;
+    135deg,
+    rgba(6, 13, 8, 0.93) 0%,
+    rgba(6, 13, 8, 0.72) 50%,
+    rgba(6, 13, 8, 0.90) 100%
+  );
+  z-index: 1;
 }
 
 .heroGrid {
@@ -379,6 +384,8 @@
   align-items: center;
   justify-content: center;
   border: 1px solid rgba(57, 233, 123, 0.15);
+  position: relative;
+  overflow: hidden;
 }
 
 .isoBadge {
@@ -659,6 +666,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
 }
 
 .caseCategoryBadge {
