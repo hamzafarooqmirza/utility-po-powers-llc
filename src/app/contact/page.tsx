@@ -62,11 +62,60 @@ const MINI_FAQS = [
   },
 ];
 
+// Replace with your actual WhatsApp number (digits only, with country code)
+const WHATSAPP_NUMBER = "18000001234";
+
+interface FormData {
+  firstName: string;
+  lastName: string;
+  company: string;
+  email: string;
+  phone: string;
+  service: string;
+  size: string;
+  message: string;
+}
+
+const EMPTY_FORM: FormData = {
+  firstName: "",
+  lastName: "",
+  company: "",
+  email: "",
+  phone: "",
+  service: "",
+  size: "",
+  message: "",
+};
+
 export default function ContactPage() {
+  const [form, setForm] = useState<FormData>(EMPTY_FORM);
   const [submitted, setSubmitted] = useState(false);
+
+  function set(field: keyof FormData) {
+    return (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
+      setForm((prev) => ({ ...prev, [field]: e.target.value }));
+  }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    const text = [
+      "🔋 *New Quote Request — Utility PO Powers LLC*",
+      "",
+      `👤 *Name:* ${form.firstName} ${form.lastName}`,
+      `🏢 *Company:* ${form.company}`,
+      `📧 *Email:* ${form.email}`,
+      form.phone ? `📞 *Phone:* ${form.phone}` : null,
+      form.service ? `⚡ *Service Needed:* ${form.service}` : null,
+      form.size ? `📐 *Facility Size:* ${form.size}` : null,
+      "",
+      `💬 *Message:*\n${form.message}`,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
     setSubmitted(true);
   }
 
@@ -106,54 +155,77 @@ export default function ContactPage() {
           <div className={styles.formCard}>
             {submitted ? (
               <div style={{ textAlign: "center", padding: "40px 0" }}>
-                <div style={{ fontSize: 56, marginBottom: 16 }}>✅</div>
+                <div style={{ fontSize: 56, marginBottom: 16 }}>💬</div>
                 <h2 style={{ fontSize: 22, fontWeight: 800, color: "#fff", marginBottom: 12 }}>
-                  Message Received!
+                  WhatsApp Opened!
                 </h2>
-                <p style={{ fontSize: 14, color: "#8fa89a", lineHeight: 1.75 }}>
-                  Thank you for reaching out. A member of our team will contact you within
-                  one business day to discuss your project.
+                <p style={{ fontSize: 14, color: "#8fa89a", lineHeight: 1.75, marginBottom: 24 }}>
+                  Your quote request was sent to WhatsApp. If the window didn&apos;t open,{" "}
+                  <a
+                    href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: "#39e97b", fontWeight: 600 }}
+                  >
+                    click here to open WhatsApp
+                  </a>
+                  .
                 </p>
+                <button
+                  onClick={() => setSubmitted(false)}
+                  style={{
+                    background: "rgba(57,233,123,0.1)",
+                    border: "1px solid rgba(57,233,123,0.3)",
+                    color: "#39e97b",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    padding: "10px 20px",
+                    borderRadius: 8,
+                    cursor: "pointer",
+                  }}
+                >
+                  Send Another Message
+                </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
                 <h2 className={styles.formTitle}>Send Us a Message</h2>
                 <p className={styles.formSubtitle}>
-                  Tell us about your facility and goals — we&apos;ll match you with the right
-                  solution and team.
+                  Fill in your details and click submit — your quote will open directly in
+                  WhatsApp so our team can respond instantly.
                 </p>
 
                 <div className={styles.formRow}>
                   <div className={styles.formGroup}>
                     <label htmlFor="firstName">First Name *</label>
-                    <input id="firstName" type="text" placeholder="John" required />
+                    <input id="firstName" type="text" placeholder="John" required value={form.firstName} onChange={set("firstName")} />
                   </div>
                   <div className={styles.formGroup}>
                     <label htmlFor="lastName">Last Name *</label>
-                    <input id="lastName" type="text" placeholder="Smith" required />
+                    <input id="lastName" type="text" placeholder="Smith" required value={form.lastName} onChange={set("lastName")} />
                   </div>
                 </div>
 
                 <div className={styles.formGroup}>
                   <label htmlFor="company">Company / Organization *</label>
-                  <input id="company" type="text" placeholder="Acme Corp" required />
+                  <input id="company" type="text" placeholder="Acme Corp" required value={form.company} onChange={set("company")} />
                 </div>
 
                 <div className={styles.formRow}>
                   <div className={styles.formGroup}>
                     <label htmlFor="email">Email Address *</label>
-                    <input id="email" type="email" placeholder="john@acmecorp.com" required />
+                    <input id="email" type="email" placeholder="john@acmecorp.com" required value={form.email} onChange={set("email")} />
                   </div>
                   <div className={styles.formGroup}>
                     <label htmlFor="phone">Phone Number</label>
-                    <input id="phone" type="tel" placeholder="+1 (555) 000-0000" />
+                    <input id="phone" type="tel" placeholder="+1 (555) 000-0000" value={form.phone} onChange={set("phone")} />
                   </div>
                 </div>
 
                 <div className={styles.formRow}>
                   <div className={styles.formGroup}>
                     <label htmlFor="service">Service Needed</label>
-                    <select id="service">
+                    <select id="service" value={form.service} onChange={set("service")}>
                       <option value="">Select a service…</option>
                       <option>New Construction</option>
                       <option>Consult Services</option>
@@ -166,7 +238,7 @@ export default function ContactPage() {
                   </div>
                   <div className={styles.formGroup}>
                     <label htmlFor="size">Facility Size</label>
-                    <select id="size">
+                    <select id="size" value={form.size} onChange={set("size")}>
                       <option value="">Select size…</option>
                       <option>Under 10,000 sq ft</option>
                       <option>10,000 – 50,000 sq ft</option>
@@ -183,15 +255,17 @@ export default function ContactPage() {
                     id="message"
                     placeholder="Describe your energy challenges, goals, or any specific requirements…"
                     required
+                    value={form.message}
+                    onChange={set("message")}
                   />
                 </div>
 
                 <button type="submit" className={styles.submitBtn}>
-                  Send Message →
+                  Send via WhatsApp →
                 </button>
                 <p className={styles.formDisclaimer}>
-                  By submitting, you agree to our Privacy Policy. We never share your
-                  information with third parties.
+                  Clicking submit opens WhatsApp with your details pre-filled. We never share
+                  your information with third parties.
                 </p>
               </form>
             )}
