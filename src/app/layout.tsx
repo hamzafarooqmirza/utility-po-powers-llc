@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Utility PO Powers LLC – Powering Smarter Energy Solutions",
   description:
-    "We combine institutional engineering expertise with modern commissioning systems, our carbon footprint, and build infrastructure that lasts.",
+    "We combine institutional engineering expertise with modern commissioning systems, reduce your carbon footprint, and build energy infrastructure that lasts.",
 };
 
 export default function RootLayout({
@@ -12,7 +14,11 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Navbar />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
