@@ -4,15 +4,19 @@ import { useState } from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
 
+// Hero: large solar panel field at dusk
 const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1920&q=80";
+  "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1920&q=80";
 
+// About: aerial view of solar farm
 const ABOUT_IMAGE =
-  "https://images.unsplash.com/photo-1548169874-53e85f753f1e?auto=format&fit=crop&w=900&q=80";
+  "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=900&q=80";
 
 const CASE_IMAGES = [
+  // Case 1 – wind turbines at sunset (renewable energy tech park)
   "https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1565043666747-69f6646db940?auto=format&fit=crop&w=800&q=80",
+  // Case 2 – solar panels on industrial rooftop (factory retrofit)
+  "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=800&q=80",
 ];
 
 const NAV_LINKS = [
