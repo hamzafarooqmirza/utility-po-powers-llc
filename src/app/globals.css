@@ -1,0 +1,11 @@
+/* Global styles reset — page-specific styles will be added inline or via page CSS modules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
