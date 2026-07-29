@@ -1,7 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import styles from "./page.module.css";
+
+const HERO_IMAGE =
+  "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1920&q=80";
+
+const ABOUT_IMAGE =
+  "https://images.unsplash.com/photo-1548169874-53e85f753f1e?auto=format&fit=crop&w=900&q=80";
+
+const CASE_IMAGES = [
+  "https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1565043666747-69f6646db940?auto=format&fit=crop&w=800&q=80",
+];
 
 const NAV_LINKS = [
   { label: "Home", href: "#" },
@@ -347,7 +359,16 @@ export default function Home() {
 
       {/* ── HERO ── */}
       <section className={styles.hero}>
-        <div className={styles.heroBg} />
+        <div className={styles.heroBg}>
+          <Image
+            src={HERO_IMAGE}
+            alt="Power infrastructure at night"
+            fill
+            priority
+            style={{ objectFit: "cover", objectPosition: "center" }}
+          />
+          <div className={styles.heroBgOverlay} />
+        </div>
         <div className={styles.heroGrid} />
         <div className={styles.heroContent}>
           <p className={styles.heroEyebrow}>Smart Construction LLC</p>
@@ -411,9 +432,12 @@ export default function Home() {
         <div className={styles.aboutGrid}>
           <div className={styles.aboutImageWrap}>
             <div className={styles.aboutImagePlaceholder}>
-              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="rgba(57,233,123,0.3)" strokeWidth="1">
-                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-              </svg>
+              <Image
+                src={ABOUT_IMAGE}
+                alt="Power transmission towers at sunset"
+                fill
+                style={{ objectFit: "cover", objectPosition: "center", borderRadius: "16px" }}
+              />
             </div>
             <div className={styles.isoBadge}>
               <span className={styles.isoBadgeText}>ISO</span>
@@ -531,16 +555,16 @@ export default function Home() {
           Case Studies That <em>Speak for Themselves</em>
         </h2>
         <div className={styles.caseStudiesGrid}>
-          {CASE_STUDIES.map((c) => (
+          {CASE_STUDIES.map((c, idx) => (
             <div key={c.title} className={styles.caseCard}>
               <div className={styles.caseImageWrap}>
-                <div
-                  className={styles.caseImagePlaceholder}
-                  style={{ background: `linear-gradient(135deg, ${c.bgColor}, #111a12)` }}
-                >
-                  <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(57,233,123,0.25)" strokeWidth="1">
-                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                  </svg>
+                <div className={styles.caseImagePlaceholder}>
+                  <Image
+                    src={CASE_IMAGES[idx]}
+                    alt={c.title}
+                    fill
+                    style={{ objectFit: "cover", objectPosition: "center" }}
+                  />
                 </div>
                 <span className={styles.caseCategoryBadge}>{c.category}</span>
               </div>
